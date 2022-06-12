@@ -3,13 +3,14 @@
 // Please open index.html in browser to run this app
 
 // import and destructure objects from matter.js
-const { Engine, Render, Runner, World, Bodies, Mouse, MouseConstraint } =
+const { Engine, Render, Runner, World, Bodies } =
   Matter;
 
 const engine = Engine.create(); // Initialize engine
 const { world } = engine; // Capture world object
 
-const width = 800;
+// Square canvas shapes simplifies our maze generating logic for prototype
+const width = 600;
 const height = 600;
 
 const render = Render.create({
@@ -28,50 +29,45 @@ const render = Render.create({
 Render.run(render); // Activate renderer
 Runner.run(Runner.create(), engine); // Link the runner
 
-// Add a Mouse Constraint parameter to our world
-// to enable click and drag functionality for canvas objects
-World.add(
-  world,
-  MouseConstraint.create(engine, {
-    mouse: Mouse.create(render.canvas),
-  })
-);
-
 // Render a static shape
-const shape = Bodies.rectangle(200, 200, 50, 50, {
-  // pos(x), pos(y), len(x), len(y)
-  isStatic: true, // show the shape but never move it
-});
+const shape = Bodies.rectangle(
+    200, 200, 50, 50, // pos(x), pos(y), len(x), len(y)
+    {
+    isStatic: true, // show the shape but never move it
+    }   
+);
 
 // Walls added to borders of canvas
 const walls = [
-  Bodies.rectangle(400, 0, 800, 40, { isStatic: true }),
-  Bodies.rectangle(400, 600, 800, 40, { isStatic: true }),
-  Bodies.rectangle(0, 300, 40, 600, { isStatic: true }),
-  Bodies.rectangle(800, 300, 40, 600, { isStatic: true }),
+  Bodies.rectangle(
+    width / 2, // pos x
+    0, // pos y
+    width, // len x
+    40, // len y
+    { isStatic: true } // show the shape but never move it
+    ),
+  Bodies.rectangle(
+    width / 2, 
+    height, 
+    width, 
+    40, 
+    { isStatic: true }
+    ),
+  Bodies.rectangle(
+    0, 
+    height / 2, 
+    40, 
+    height, 
+    { isStatic: true }
+    ),
+  Bodies.rectangle(
+    width, 
+    height / 2, 
+    40, 
+    height, 
+    { isStatic: true }
+    ),
 ];
 
 // You can pass in an array of shapes into World.add
 World.add(world, walls);
-
-for (let i = 0; i < 40; i++) {
-  
-    // Do some RNG and make squares when RNG < 0.5, circles when > 0.5
-    if (Math.random() > 0.5) {
-        World.add(
-            world,
-            Bodies.rectangle(Math.random() * width, Math.random() * height, 50, 50)
-          );
-    } else {
-        World.add(
-            world,
-            Bodies.circle(Math.random() * width, Math.random() * height, 35, {
-                render: {
-                    fillStyle: 'red' // make all circles red
-                }
-            })
-          );
-    }
-    
-
-}
