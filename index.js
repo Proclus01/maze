@@ -1,7 +1,7 @@
 //jshint esversion:9
 
 // import and destructure objects from matter.js
-const { Engine, Render, Runner, World, Bodies } = Matter;
+const { Engine, Render, Runner, World, Bodies, Mouse, MouseConstraint } = Matter;
 
 const engine = Engine.create(); // Initialize engine
 const { world } = engine; // Capture world object
@@ -18,6 +18,12 @@ const render = Render.create({ // Render.create() takes config object
 
 Render.run(render); // Activate renderer
 Runner.run(Runner.create(), engine); // Link the runner
+
+// Add a Mouse Constraint parameter to our world
+// to enable click and drag functionality for canvas objects
+World.add(world, MouseConstraint.create(engine, {
+    mouse: Mouse.create(render.canvas)
+}));
 
 // Render a static shape
 const shape = Bodies.rectangle(200, 200, 50, 50, { // pos(x), pos(y), len(x), len(y)
