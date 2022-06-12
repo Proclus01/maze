@@ -73,7 +73,6 @@ const walls = [
 World.add(world, walls);
 
 // Maze Generations
-const grid = [];
 
 // Our grid is an N x N matrix with FALSE in every entry. 
 // Once we visited a cell, we modify its value to TRUE. 
@@ -81,15 +80,8 @@ const grid = [];
 // and converts it to TRUE until the whole matrix is TRUE
 
 // Initialize grid
-for (let i = 0; i < 3; i++) {
-    // Initialize empty ROW
-    grid.push([]);
-
-    // Push COL values into ROW
-    for (let j = 0; j < 3; j++) {
-        // Initial value is FALSE
-        grid[i].push(false);
-    }
-}
+const grid = Array(3)
+    .fill(null) // initialize 3 empty rows
+    .map( () => Array(3).fill(false)); // add in 3 columns with FALSE in each col
 
 console.log(grid);
