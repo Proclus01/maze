@@ -71,3 +71,25 @@ const walls = [
 
 // You can pass in an array of shapes into World.add
 World.add(world, walls);
+
+// Maze Generations
+const grid = [];
+
+// Our grid is an N x N matrix with FALSE in every entry. 
+// Once we visited a cell, we modify its value to TRUE. 
+// Then our selector randomly visits another neighbour, 
+// and converts it to TRUE until the whole matrix is TRUE
+
+// Initialize grid
+for (let i = 0; i < 3; i++) {
+    // Initialize empty ROW
+    grid.push([]);
+
+    // Push COL values into ROW
+    for (let j = 0; j < 3; j++) {
+        // Initial value is FALSE
+        grid[i].push(false);
+    }
+}
+
+console.log(grid);
