@@ -77,6 +77,27 @@ World.add(world, walls);
 
 // Maze Generations
 
+// Shuffle an array
+const shuffle = (arr) => {
+    // Initialize counter to array length
+    let counter = arr.length;
+
+    while (counter > 0) {
+        // Get a random index of the array
+        const index = Math.floor(Math.random() * counter);
+
+        // Decrement
+        counter--;
+
+        // Swap two array entries
+        let temp = arr[counter];
+        arr[counter] = arr[index];
+        arr[index] = temp;
+    }
+
+    return arr;
+};
+
 // Our grid is an N x N matrix with FALSE in every entry. 
 // Once we visited a cell, we modify its value to TRUE. 
 // Then our selector randomly visits another neighbour, 
@@ -117,15 +138,17 @@ const stepThroughCell = (row, column) => {
     // Assemble randomly-ordered list of neighbours
 
     // Create orientable references to neighbouring cells from current cell
-    const neighbours = [
+    const neighbours = shuffle([
         [row - 1, column], // Above
         [row, column + 1], // Right
         [row + 1, column], // Below
         [row, column - 1], // Left
-    ];
+    ]);
+
+    console.log(neighbours);
 
     // Randomly sort the list of references
-    
+
 
 
     // For each neighbour ...
@@ -139,5 +162,9 @@ const stepThroughCell = (row, column) => {
     // visit the next cell
 };
 
-stepThroughCell(startRow, startColumn);
-console.log(grid);
+// TEST:
+//
+// Input: (1, 1)
+// Expected Output: (1,0), (0, 1), (1, 2), (2, 1)
+// These are the neighbours of (1, 1) cell on a square 3x3 grid
+stepThroughCell(1, 1); 
