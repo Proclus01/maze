@@ -84,4 +84,14 @@ const grid = Array(3)
     .fill(null) // initialize 3 empty rows
     .map( () => Array(3).fill(false)); // add in 3 columns with FALSE in each col
 
+// Verticals array - initialize a 3x2 matrix
+const verticals = Array(3)
+    .fill(null) // initialize 3 empty rows
+    .map( () => Array(2).fill(false));
+
+// Horizontals array - initialize a 2x3 matrix
+const horizontals = Array(2)
+    .fill(null) // initialize 3 empty rows
+    .map( () => Array(3).fill(false));
+
 console.log(grid);
