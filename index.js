@@ -116,6 +116,18 @@ const stepThroughCell = (row, column) => {
 
     // Assemble randomly-ordered list of neighbours
 
+    // Create orientable references to neighbouring cells from current cell
+    const neighbours = [
+        [row - 1, column], // Above
+        [row, column + 1], // Right
+        [row + 1, column], // Below
+        [row, column - 1], // Left
+    ];
+
+    // Randomly sort the list of references
+    
+
+
     // For each neighbour ...
     // 
     //      check to see if that neighbour is out of bounds
