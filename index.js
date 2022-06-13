@@ -10,7 +10,7 @@ const engine = Engine.create(); // Initialize engine
 const { world } = engine; // Capture world object
 
 // Config variables for vertical and horizontal walls initializer
-const cells = 5;
+const cells = 3;
 
 // Square canvas shapes simplifies our maze generating logic for prototype
 const width = 600;
