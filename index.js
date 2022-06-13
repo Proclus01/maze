@@ -9,6 +9,9 @@ const { Engine, Render, Runner, World, Bodies } =
 const engine = Engine.create(); // Initialize engine
 const { world } = engine; // Capture world object
 
+// Config variables for vertical and horizontal walls initializer
+const cells = 3;
+
 // Square canvas shapes simplifies our maze generating logic for prototype
 const width = 600;
 const height = 600;
@@ -80,18 +83,18 @@ World.add(world, walls);
 // and converts it to TRUE until the whole matrix is TRUE
 
 // Initialize grid
-const grid = Array(3)
+const grid = Array(cells)
     .fill(null) // initialize 3 empty rows
-    .map( () => Array(3).fill(false)); // add in 3 columns with FALSE in each col
+    .map( () => Array(cells).fill(false)); // add in 3 columns with FALSE in each col
 
 // Verticals array - initialize a 3x2 matrix
-const verticals = Array(3)
+const verticals = Array(cells)
     .fill(null) // initialize 3 empty rows
-    .map( () => Array(2).fill(false));
+    .map( () => Array(cells - 1).fill(false));
 
 // Horizontals array - initialize a 2x3 matrix
-const horizontals = Array(2)
-    .fill(null) // initialize 3 empty rows
-    .map( () => Array(3).fill(false));
+const horizontals = Array(cells - 1)
+    .fill(null) // initialize 2 empty rows
+    .map( () => Array(cells).fill(false));
 
-console.log(grid);
+console.log(horizontals);
