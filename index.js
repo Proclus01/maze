@@ -97,4 +97,30 @@ const horizontals = Array(cells - 1)
     .fill(null) // initialize 2 empty rows
     .map( () => Array(cells).fill(false));
 
-console.log(horizontals);
+// Random start coordinates (in cells) for our maze generator
+const startRow = Math.floor(Math.random() * cells);
+const startColumn = Math.floor(Math.random() * cells);
+
+// Now we're going to define a function that take the startRow 
+// and startColumn variables, and iterate through our grid
+// and this function will then generate our maze for us
+
+const stepThroughCell = (row, column) => {
+    // If I have visited the cell at [row, column], then return
+
+    // Mark this cell as being visited
+
+    // Assemble randomly-ordered list of neighbours
+
+    // For each neighbour ...
+    // 
+    //      check to see if that neighbour is out of bounds
+    //      check to se if we have visited that neighbour
+    //          then continue to next neighbour
+    //
+    // Remove a wall from either verticals or horizontals
+    //
+    // visit the next cell
+};
+
+stepThroughCell(startRow, startColumn);
