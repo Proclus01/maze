@@ -139,10 +139,10 @@ const stepThroughCell = (row, column) => {
 
     // Create orientable references to neighbouring cells from current cell
     const neighbours = shuffle([
-        [row - 1, column], // Above
-        [row, column + 1], // Right
-        [row + 1, column], // Below
-        [row, column - 1], // Left
+        [row - 1, column, 'up'], // Above
+        [row, column + 1, 'right'], // Right
+        [row + 1, column, 'down'], // Below
+        [row, column - 1, 'left'], // Left
     ]);
 
     console.log(neighbours);
@@ -152,14 +152,31 @@ const stepThroughCell = (row, column) => {
 
 
     // For each neighbour ...
-    // 
-    //      check to see if that neighbour is out of bounds
-    //      check to se if we have visited that neighbour
-    //          then continue to next neighbour
-    //
-    // Remove a wall from either verticals or horizontals
-    //
-    // visit the next cell
+    for (let neighbour of neighbours) {
+
+        const [nextRow, nextColumn, direction] = neighbour;
+
+        // check to see if that neighbour is out of bounds
+        if (nextRow < 0 || 
+            nextRow >= cells ||
+            nextColumn < 0 ||
+            nextColumn >= cells
+            ) {
+                continue;
+        }
+
+        // If we have visited that neighbor, continue to next neighbour
+        if (grid[nextRow][nextColumn]) {
+            continue;
+        }
+        
+        // Remove a wall from either verticals or horizontals
+        // If going up or down, update horizontals
+        // If going left or right, update verticals
+        
+
+        // visit the next cell
+    }
 };
 
 // TEST:
