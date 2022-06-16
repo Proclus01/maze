@@ -180,7 +180,8 @@ const stepThroughCell = (row, column) => {
             horizontals[row][column] = true;
         }
 
-        // visit the next cell
+        // visit the next cell recursively
+        stepThroughCell(nextRow, nextColumn);
     }
 };
 
