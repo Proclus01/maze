@@ -186,3 +186,28 @@ const stepThroughCell = (row, column) => {
 };
 
 stepThroughCell(startRow, startColumn); 
+
+// Iterate over all verticals and horizontals
+// and for every true or false in the array
+// either keep or remove a vertical or horizontal wall
+
+horizontals.forEach(
+    // capture row 
+    (row) => {
+        
+        // iterate over row values
+        row.forEach(
+            // if true, proceed
+            (open) => {
+                // if already open, then return
+                if (open) {
+                    return;
+                }
+
+                // otherwise open the wall
+                const wall = Bodies.rectangle();
+            }
+        );
+
+    }
+);
