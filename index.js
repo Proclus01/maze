@@ -138,6 +138,7 @@ const stepThroughCell = (row, column) => {
     // Assemble randomly-ordered list of neighbours
 
     // Create orientable references to neighbouring cells from current cell
+    // Randomly sort the list of references
     // These are your possible directions of travel
     const neighbours = shuffle([
         [row - 1, column, 'up'], // Above
@@ -146,13 +147,8 @@ const stepThroughCell = (row, column) => {
         [row, column - 1, 'left'], // Left
     ]);
 
-    console.log(neighbours);
-
-    // Randomly sort the list of references
-
-
-
-    // For each neighbour ...
+    // Cell wall detection
+    // For each neighbour of current cell,
     for (let neighbour of neighbours) {
 
         const [nextRow, nextColumn, direction] = neighbour;
@@ -172,23 +168,20 @@ const stepThroughCell = (row, column) => {
         }
         
         // Remove a wall from either verticals or horizontals
-        // If going up or down, update horizontals
-        // If going left or right, update verticals
-
-        // Verticals
-        if (direction === 'left') {
+            // If going up or down, update horizontals
+            // If going left or right, update verticals
+        if (direction === 'left') { // Verticals
             verticals[row][column - 1] = true;
         } else if (direction === 'right') {
             verticals[row][column] = true; 
+        } else if (direction === 'up') { // Horizontals
+            horizontals[row - 1][column] = true;
+        } else if (direction === 'down') {
+            horizontals[row][column] = true;
         }
 
         // visit the next cell
     }
 };
 
-// TEST:
-//
-// Input: (1, 1)
-// Expected Output: (1,0), (0, 1), (1, 2), (2, 1)
-// These are the neighbours of (1, 1) cell on a square 3x3 grid
-stepThroughCell(1, 1); 
+stepThroughCell(startRow, startColumn); 
