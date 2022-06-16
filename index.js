@@ -138,6 +138,7 @@ const stepThroughCell = (row, column) => {
     // Assemble randomly-ordered list of neighbours
 
     // Create orientable references to neighbouring cells from current cell
+    // These are your possible directions of travel
     const neighbours = shuffle([
         [row - 1, column, 'up'], // Above
         [row, column + 1, 'right'], // Right
@@ -173,7 +174,13 @@ const stepThroughCell = (row, column) => {
         // Remove a wall from either verticals or horizontals
         // If going up or down, update horizontals
         // If going left or right, update verticals
-        
+
+        // Verticals
+        if (direction === 'left') {
+            verticals[row][column - 1] = true;
+        } else if (direction === 'right') {
+            verticals[row][column] = true; 
+        }
 
         // visit the next cell
     }
