@@ -10,7 +10,7 @@ const engine = Engine.create(); // Initialize engine
 const { world } = engine; // Capture world object
 
 // Config variables for vertical and horizontal walls initializer
-const cells = 3;
+const cells = 5;
 
 // Square canvas shapes simplifies our maze generating logic for prototype
 const width = 600;
@@ -29,7 +29,7 @@ const render = Render.create({
     // declare size of canvas in pixels
     width,
     height,
-    wireframes: false // render solid objects w/ random colours
+    wireframes: true // render solid objects w/ random colours
   },
 });
 
@@ -195,6 +195,7 @@ stepThroughCell(startRow, startColumn);
 // and for every true or false in the array
 // either keep or remove a vertical or horizontal wall
 
+// Render the Horizontals Array as horizontal walls of maze
 horizontals.forEach(
     // capture row 
     (row, rowIndex) => {
@@ -208,12 +209,43 @@ horizontals.forEach(
                     return;
                 }
 
-                // render verticals and horizontals
+                // render horizontals
                 const wall = Bodies.rectangle(
                     columnIndex * unitLength + unitLength / 2, // X centrepoint bottom of cell
                     rowIndex * unitLength + unitLength, // Y coord for bottom of cell
                     unitLength, // width
                     10, // height
+                    { isStatic: true} // immobile in engine
+                );
+                
+                // Add the walls to the world
+                World.add(world, wall);
+            }
+        );
+
+    }
+);
+
+// Render the Verticals array as vertical walls of maze
+verticals.forEach(
+    // capture row 
+    (row, rowIndex) => {
+        
+        // iterate over row values
+        row.forEach(
+            // if true, proceed
+            (open, columnIndex) => {
+                // if already open, then return
+                if (open) {
+                    return;
+                }
+
+                // render verticals
+                const wall = Bodies.rectangle(
+                    columnIndex * unitLength + unitLength, // X coord for right wall of cell
+                    rowIndex * unitLength + unitLength / 2, // Y centrepoint right wall of cell
+                    10, // width
+                    unitLength, // height
                     { isStatic: true} // immobile in engine
                 );
                 
