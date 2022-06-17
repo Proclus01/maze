@@ -16,6 +16,10 @@ const cells = 3;
 const width = 600;
 const height = 600;
 
+// Size of cell in pixels
+const unitLength = width / cells;
+// also remember to add length Y later
+
 const render = Render.create({
   // Render.create() takes config object
   // where to display our element (inserts canvas element to HTML)
@@ -193,19 +197,28 @@ stepThroughCell(startRow, startColumn);
 
 horizontals.forEach(
     // capture row 
-    (row) => {
+    (row, rowIndex) => {
         
         // iterate over row values
         row.forEach(
             // if true, proceed
-            (open) => {
+            (open, columnIndex) => {
                 // if already open, then return
                 if (open) {
                     return;
                 }
 
-                // otherwise open the wall
-                const wall = Bodies.rectangle();
+                // render verticals and horizontals
+                const wall = Bodies.rectangle(
+                    columnIndex * unitLength + unitLength / 2, // X centrepoint bottom of cell
+                    rowIndex * unitLength + unitLength, // Y coord for bottom of cell
+                    unitLength, // width
+                    10, // height
+                    { isStatic: true} // immobile in engine
+                );
+                
+                // Add the walls to the world
+                World.add(world, wall);
             }
         );
 
