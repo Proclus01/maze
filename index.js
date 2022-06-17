@@ -50,27 +50,27 @@ const walls = [
     width / 2, // pos x
     0, // pos y
     width, // len x
-    40, // len y
+    2, // len y
     { isStatic: true } // show the shape but never move it
     ),
   Bodies.rectangle(
     width / 2, 
     height, 
     width, 
-    40, 
+    2, 
     { isStatic: true }
     ),
   Bodies.rectangle(
     0, 
     height / 2, 
-    40, 
+    2, 
     height, 
     { isStatic: true }
     ),
   Bodies.rectangle(
     width, 
     height / 2, 
-    40, 
+    2, 
     height, 
     { isStatic: true }
     ),
@@ -256,3 +256,13 @@ verticals.forEach(
 
     }
 );
+
+// Render the goal
+const goal = Bodies.rectangle(
+    width - unitLength / 2, // X coord
+    height - unitLength / 2, // Y coord
+    unitLength * 0.7, // width
+    unitLength * 0.7, // height
+    { isStatic: true }
+);
+World.add(world, goal);
