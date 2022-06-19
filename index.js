@@ -7,6 +7,7 @@ const { Engine, Render, Runner, World, Bodies, Body } =
   Matter;
 
 const engine = Engine.create(); // Initialize engine
+engine.world.gravity.y = 0; // Disable gravity in y direction
 const { world } = engine; // Capture world object
 
 // Config variables for vertical and horizontal walls initializer
@@ -50,27 +51,27 @@ const walls = [
     width / 2, // pos x
     0, // pos y
     width, // len x
-    8, // len y
+    2, // len y
     { isStatic: true } // show the shape but never move it
     ),
   Bodies.rectangle(
     width / 2, 
     height, 
     width, 
-    8, 
+    2, 
     { isStatic: true }
     ),
   Bodies.rectangle(
     0, 
     height / 2, 
-    8, 
+    2, 
     height, 
     { isStatic: true }
     ),
   Bodies.rectangle(
     width, 
     height / 2, 
-    8, 
+    2, 
     height, 
     { isStatic: true }
     ),
