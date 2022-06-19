@@ -14,8 +14,8 @@ const { world } = engine; // Capture world object
 const cells = 10;
 
 // Square canvas shapes simplifies our maze generating logic for prototype
-const width = 600;
-const height = 600;
+const width = window.innerWidth;
+const height = window.innerHeight;
 
 // Size of cell in pixels
 const unitLength = width / cells;
