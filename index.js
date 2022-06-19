@@ -10,7 +10,7 @@ const engine = Engine.create(); // Initialize engine
 const { world } = engine; // Capture world object
 
 // Config variables for vertical and horizontal walls initializer
-const cells = 5;
+const cells = 10;
 
 // Square canvas shapes simplifies our maze generating logic for prototype
 const width = 600;
@@ -266,3 +266,11 @@ const goal = Bodies.rectangle(
     { isStatic: true }
 );
 World.add(world, goal);
+
+// Render the ball
+const ball = Bodies.circle(
+    unitLength / 2, // X coord
+    unitLength / 2, // Y coord
+    unitLength / 4, // diameter
+);
+World.add(world, ball);
