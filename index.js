@@ -11,8 +11,8 @@ engine.world.gravity.y = 0; // Disable gravity in y direction
 const { world } = engine; // Capture world object
 
 // Determine number of cells in X and Y direction, e.g. 4 x 3 rectangular maze vs. 3 x 5
-const cellsHorizontal = 4;
-const cellsVertical = 3;
+const cellsHorizontal = 14; // corresponds to COLUMNS
+const cellsVertical = 10; // corresponds to ROWS
 
 // Variable-sized canvas fits browser window
 const width = window.innerWidth;
@@ -110,23 +110,23 @@ const shuffle = (arr) => {
 // and converts it to TRUE until the whole matrix is TRUE
 
 // Initialize grid
-const grid = Array(cells)
+const grid = Array(cellsVertical) // cellsVertical is no. of rows
     .fill(null) // initialize 3 empty rows
-    .map( () => Array(cells).fill(false)); // add in 3 columns with FALSE in each col
+    .map( () => Array(cellsHorizontal).fill(false)); // add in 3 columns with FALSE in each col
 
 // Verticals array - initialize a 3x2 matrix
-const verticals = Array(cells)
+const verticals = Array(cellsVertical)
     .fill(null) // initialize 3 empty rows
-    .map( () => Array(cells - 1).fill(false));
+    .map( () => Array(cellsHorizontal - 1).fill(false));
 
 // Horizontals array - initialize a 2x3 matrix
-const horizontals = Array(cells - 1)
+const horizontals = Array(cellsVertical - 1)
     .fill(null) // initialize 2 empty rows
-    .map( () => Array(cells).fill(false));
+    .map( () => Array(cellsHorizontal).fill(false));
 
 // Random start coordinates (in cells) for our maze generator
-const startRow = Math.floor(Math.random() * cells);
-const startColumn = Math.floor(Math.random() * cells);
+const startRow = Math.floor(Math.random() * cellsVertical);
+const startColumn = Math.floor(Math.random() * cellsHorizontal);
 
 // Now we're going to define a function that take the startRow 
 // and startColumn variables, and iterate through our grid
@@ -161,9 +161,9 @@ const stepThroughCell = (row, column) => {
 
         // check to see if that neighbour is out of bounds
         if (nextRow < 0 || 
-            nextRow >= cells ||
+            nextRow >= cellsVertical ||
             nextColumn < 0 ||
-            nextColumn >= cells
+            nextColumn >= cellsHorizontal
             ) {
                 continue;
         }
@@ -213,9 +213,9 @@ horizontals.forEach(
 
                 // render horizontals
                 const wall = Bodies.rectangle(
-                    columnIndex * unitLength + unitLength / 2, // X centrepoint bottom of cell
-                    rowIndex * unitLength + unitLength, // Y coord for bottom of cell
-                    unitLength, // width
+                    columnIndex * unitLengthX + unitLengthX / 2, // X centrepoint bottom of cell
+                    rowIndex * unitLengthY + unitLengthY, // Y coord for bottom of cell
+                    unitLengthX, // width
                     10, // height
                     { 
                         isStatic: true, // immobile in engine
@@ -247,10 +247,10 @@ verticals.forEach(
 
                 // render verticals
                 const wall = Bodies.rectangle(
-                    columnIndex * unitLength + unitLength, // X coord for right wall of cell
-                    rowIndex * unitLength + unitLength / 2, // Y centrepoint right wall of cell
+                    columnIndex * unitLengthX + unitLengthX, // X coord for right wall of cell
+                    rowIndex * unitLengthY + unitLengthY / 2, // Y centrepoint right wall of cell
                     10, // width
-                    unitLength, // height
+                    unitLengthY, // height
                     { 
                         isStatic: true, // immobile in engine
                         label: 'wall'
@@ -267,10 +267,10 @@ verticals.forEach(
 
 // Render the goal
 const goal = Bodies.rectangle(
-    width - unitLength / 2, // X coord
-    height - unitLength / 2, // Y coord
-    unitLength * 0.7, // width
-    unitLength * 0.7, // height
+    width - unitLengthX / 2, // X coord
+    height - unitLengthY / 2, // Y coord
+    unitLengthX * 0.7, // width
+    unitLengthY * 0.7, // height
     { 
         isStatic: true,
         label: 'goal'
@@ -279,10 +279,14 @@ const goal = Bodies.rectangle(
 World.add(world, goal);
 
 // Render the ball
+
+// Get the smallest of the X,Y values and divide by 4 to get radius for ball
+const ballRadius = Math.min(unitLengthX, unitLengthY) / 4;
+
 const ball = Bodies.circle(
-    unitLength / 2, // X coord
-    unitLength / 2, // Y coord
-    unitLength / 4, // radius
+    unitLengthX / 2, // X coord
+    unitLengthY / 2, // Y coord
+    ballRadius / 4, // radius
     {
         label: 'ball'
     }
