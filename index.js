@@ -3,7 +3,7 @@
 // Please open index.html in browser to run this app
 
 // import and destructure objects from matter.js
-const { Engine, Render, Runner, World, Bodies } =
+const { Engine, Render, Runner, World, Bodies, Body } =
   Matter;
 
 const engine = Engine.create(); // Initialize engine
@@ -50,27 +50,27 @@ const walls = [
     width / 2, // pos x
     0, // pos y
     width, // len x
-    2, // len y
+    8, // len y
     { isStatic: true } // show the shape but never move it
     ),
   Bodies.rectangle(
     width / 2, 
     height, 
     width, 
-    2, 
+    8, 
     { isStatic: true }
     ),
   Bodies.rectangle(
     0, 
     height / 2, 
-    2, 
+    8, 
     height, 
     { isStatic: true }
     ),
   Bodies.rectangle(
     width, 
     height / 2, 
-    2, 
+    8, 
     height, 
     { isStatic: true }
     ),
@@ -278,17 +278,20 @@ World.add(world, ball);
 // Controls for ball
 // Event handler for turning WASD keypresses  to 2D directions
 document.addEventListener('keydown', (event) => {
+    // Get velocity of ball object
+    const { x, y } = ball.velocity;
+
     if (event.keyCode === 87) {
-        console.log('move ball up');
+        Body.setVelocity(ball, { x, y: y - 5}); // move ball up by 5
     }
     if (event.keyCode === 68) {
-        console.log('move ball right');
+        Body.setVelocity(ball, { x: x + 5, y}); // move ball right
     }
     if (event.keyCode === 83) {
-        console.log('move ball down');
+        Body.setVelocity(ball, { x, y: y + 5}); // move ball down
     }
     if (event.keyCode === 65) {
-        console.log('move ball left');
+        Body.setVelocity(ball, { x: x - 5, y}); // move ball left
     }
 });
 
