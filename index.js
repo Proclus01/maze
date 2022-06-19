@@ -337,6 +337,9 @@ Events.on(engine, 'collisionStart', (event) => {
                 labels.includes(collision.bodyA.label) && 
                 labels.includes(collision.bodyB.label)
                 ) {
+                    // Reveal win message
+                    document.querySelector('.winner').classList.remove('hidden');
+
                     // Reintroduce gravity
                     world.gravity.y = 1;
 
