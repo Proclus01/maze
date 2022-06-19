@@ -11,7 +11,7 @@ engine.world.gravity.y = 0; // Disable gravity in y direction
 const { world } = engine; // Capture world object
 
 // Config variables for vertical and horizontal walls initializer
-const cells = 3;
+const cells = 10;
 
 // Square canvas shapes simplifies our maze generating logic for prototype
 const width = 600;
@@ -216,7 +216,10 @@ horizontals.forEach(
                     rowIndex * unitLength + unitLength, // Y coord for bottom of cell
                     unitLength, // width
                     10, // height
-                    { isStatic: true} // immobile in engine
+                    { 
+                        isStatic: true, // immobile in engine
+                        label: 'wall'
+                    } 
                 );
                 
                 // Add the walls to the world
@@ -247,7 +250,10 @@ verticals.forEach(
                     rowIndex * unitLength + unitLength / 2, // Y centrepoint right wall of cell
                     10, // width
                     unitLength, // height
-                    { isStatic: true} // immobile in engine
+                    { 
+                        isStatic: true, // immobile in engine
+                        label: 'wall'
+                    } 
                 );
                 
                 // Add the walls to the world
@@ -307,13 +313,23 @@ document.addEventListener('keydown', (event) => {
 Events.on(engine, 'collisionStart', (event) => {
     event.pairs.forEach(
         (collision) => {
+            // Capture the labels from the config object inside of the world objects
             const labels = ['ball', 'goal'];
 
             if (
                 labels.includes(collision.bodyA.label) && 
                 labels.includes(collision.bodyB.label)
                 ) {
-                    console.log('you won!');
+                    // Reintroduce gravity
+                    world.gravity.y = 1;
+
+                    // On win, make the maze fall apart
+                    world.bodies.forEach( body => {
+                        // Make the walls non-static so they fall down under gravity
+                        if (body.label === 'wall') {
+                            Body.setStatic(body, false);
+                        }
+                    });
                 }
         }
     );
