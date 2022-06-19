@@ -271,6 +271,6 @@ World.add(world, goal);
 const ball = Bodies.circle(
     unitLength / 2, // X coord
     unitLength / 2, // Y coord
-    unitLength / 4, // diameter
+    unitLength / 4, // radius
 );
 World.add(world, ball);
