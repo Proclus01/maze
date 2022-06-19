@@ -3,7 +3,7 @@
 // Please open index.html in browser to run this app
 
 // import and destructure objects from matter.js
-const { Engine, Render, Runner, World, Bodies, Body } =
+const { Engine, Render, Runner, World, Bodies, Body, Events } =
   Matter;
 
 const engine = Engine.create(); // Initialize engine
@@ -11,7 +11,7 @@ engine.world.gravity.y = 0; // Disable gravity in y direction
 const { world } = engine; // Capture world object
 
 // Config variables for vertical and horizontal walls initializer
-const cells = 10;
+const cells = 3;
 
 // Square canvas shapes simplifies our maze generating logic for prototype
 const width = 600;
@@ -264,7 +264,10 @@ const goal = Bodies.rectangle(
     height - unitLength / 2, // Y coord
     unitLength * 0.7, // width
     unitLength * 0.7, // height
-    { isStatic: true }
+    { 
+        isStatic: true,
+        label: 'goal'
+    }
 );
 World.add(world, goal);
 
@@ -273,6 +276,9 @@ const ball = Bodies.circle(
     unitLength / 2, // X coord
     unitLength / 2, // Y coord
     unitLength / 4, // radius
+    {
+        label: 'ball'
+    }
 );
 World.add(world, ball);
 
@@ -296,3 +302,19 @@ document.addEventListener('keydown', (event) => {
     }
 });
 
+// Win Condition
+
+Events.on(engine, 'collisionStart', (event) => {
+    event.pairs.forEach(
+        (collision) => {
+            const labels = ['ball', 'goal'];
+
+            if (
+                labels.includes(collision.bodyA.label) && 
+                labels.includes(collision.bodyB.label)
+                ) {
+                    console.log('you won!');
+                }
+        }
+    );
+});
