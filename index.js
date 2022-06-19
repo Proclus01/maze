@@ -31,7 +31,7 @@ const render = Render.create({
     // declare size of canvas in pixels
     width,
     height,
-    wireframes: true // render solid objects w/ random colours
+    wireframes: false // render solid objects w/ random colours
   },
 });
 
@@ -219,7 +219,10 @@ horizontals.forEach(
                     10, // height
                     { 
                         isStatic: true, // immobile in engine
-                        label: 'wall'
+                        label: 'wall',
+                        render: {
+                            fillStyle: 'red' // make the wall color red
+                        }
                     } 
                 );
                 
@@ -253,7 +256,10 @@ verticals.forEach(
                     unitLengthY, // height
                     { 
                         isStatic: true, // immobile in engine
-                        label: 'wall'
+                        label: 'wall',
+                        render: {
+                            fillStyle: 'red' // make the wall color red
+                        }
                     } 
                 );
                 
@@ -273,7 +279,10 @@ const goal = Bodies.rectangle(
     unitLengthY * 0.7, // height
     { 
         isStatic: true,
-        label: 'goal'
+        label: 'goal',
+        render: {
+            fillStyle: 'green' // make the color green
+        }
     }
 );
 World.add(world, goal);
@@ -288,7 +297,10 @@ const ball = Bodies.circle(
     unitLengthY / 2, // Y coord
     ballRadius / 4, // radius
     {
-        label: 'ball'
+        label: 'ball',
+        render: {
+            fillStyle: 'blue' // make the color blue
+        }
     }
 );
 World.add(world, ball);
