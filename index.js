@@ -10,16 +10,17 @@ const engine = Engine.create(); // Initialize engine
 engine.world.gravity.y = 0; // Disable gravity in y direction
 const { world } = engine; // Capture world object
 
-// Config variables for vertical and horizontal walls initializer
-const cells = 10;
+// Determine number of cells in X and Y direction, e.g. 4 x 3 rectangular maze vs. 3 x 5
+const cellsHorizontal = 4;
+const cellsVertical = 3;
 
-// Square canvas shapes simplifies our maze generating logic for prototype
+// Variable-sized canvas fits browser window
 const width = window.innerWidth;
 const height = window.innerHeight;
 
 // Size of cell in pixels
-const unitLength = width / cells;
-// also remember to add length Y later
+const unitLengthX = width / cellsHorizontal;
+const unitLengthY = width / cellsVertical;
 
 const render = Render.create({
   // Render.create() takes config object
